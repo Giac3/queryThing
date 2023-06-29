@@ -3,11 +3,11 @@
 import React, { ComponentType, FormEvent, Ref, RefAttributes, useRef, useState } from "react"
 import * as zod from 'zod'
 
-import Flow from "@/components/Flow";
+import Flow from "@/components/react-flow/Flow";
 import dynamic from "next/dynamic";
 import "@uiw/react-textarea-code-editor/dist.css";
 import { TextareaCodeEditorProps } from "@uiw/react-textarea-code-editor";
-import Loader from "@/components/Loader";
+import Loader from "@/components/loaders/Loader";
 
 const CodeEditor = dynamic(
   () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
