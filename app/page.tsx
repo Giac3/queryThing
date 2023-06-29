@@ -236,6 +236,9 @@ export default function Home() {
 
   return (
     <main className=" w-screen h-screen  bg-[#252521] flex">
+      <a href="https://github.com/Giac3/queryThing" target="_blank" className="bg-white h-7 w-7 absolute right-0 bottom-0 p-1">
+        <img className="cursor-pointer" alt="github logo" src="github-mark.png"/>
+      </a>
       <div className="flex w-screen h-screen flex-col items-center justify-between pl-24 pr-24 lg:pl-2 lg:pr-2">
         <div className="w-full  flex justify-between items-center p-10 pb-0">
           <div className="flex items-center justify-center gap-1">
