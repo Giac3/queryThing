@@ -30,6 +30,10 @@ interface Table {
   columns: Column[]
 }
 
+interface Timing {
+  planning: string
+  execution: string
+}
 
 
 export default function Home() {
@@ -53,6 +57,7 @@ export default function Home() {
   const generationMessageRef = useRef() as React.MutableRefObject<HTMLInputElement>
   const [isGenerating,setIsGenerating] = useState(false)
   const [isRunningQuery, setIsRunningQuery] = useState(false)
+  const [timing, setTiming] = useState<Timing | undefined>()
 
   const handleConnect = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -186,6 +191,10 @@ export default function Home() {
         }
         const data = await queryRes.json()
         
+        setTiming({
+          planning: data.queryInfo[data.queryInfo.length-2].split("Planning Time: ")[1],
+          execution: data.queryInfo[data.queryInfo.length-1].split("Execution Time: ")[1]
+        })
         setJsonData(JSON.stringify(data.jsonData, null, "\t"))
         setIsRunningQuery(false)
       } catch (error) {
@@ -287,7 +296,7 @@ export default function Home() {
           </div>
           </div>
           
-          <div className="w-full h-full flex items-center justify-center relative md:overflow-y-auto">
+          <div className="w-full h-full flex items-center justify-center relative md:overflow-y-auto flex-col gap-2">
           <div className="border-2 border-white rounded-md w-full h-full bg-transparent p-1 outline-none code overflow-y-auto">
             <CodeEditor
             readOnly
@@ -303,7 +312,12 @@ export default function Home() {
             />
           </div>
       <h1 className=" absolute right-0 top-0 rounded-md p-1 border-b-2 border-l-2 rounded-tl-none rounded-br-none border-white">Data</h1>
+      <div className="w-full flex items-center justify-between">
+      <div className="rounded-md border-2 border-white p-1 md:text-[2.5vw] text-xs flex">Planning Time | { timing? timing.planning : "0 ms"}</div>
+      <div className="rounded-md border-2 border-white p-1 md:text-[2.5vw] text-xs">Execution Time | { timing? timing.execution : "0 ms"}</div>
+      </div>
         </div>
+        
         </div>
       </div>
       </div>
